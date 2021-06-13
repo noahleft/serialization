@@ -6,9 +6,9 @@ class gps
 {
     friend std::ostream & operator<<(std::ostream &os, const gps &gp);
 
+public:
     /* Decimal format */
     double degrees;
-public:
     gps(double d):degrees(d){}
 };
 

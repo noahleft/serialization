@@ -1,6 +1,6 @@
 
-prog: *.cpp data/*
-	g++ -Idata main.cpp -o $@
+prog: *.cpp */*
+	g++ -Idata -Iboost_serialization main.cpp -o $@
 
 clean:
 	rm prog

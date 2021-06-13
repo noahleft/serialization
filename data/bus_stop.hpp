@@ -7,9 +7,9 @@ class bus_stop
     friend std::ostream & operator<<(std::ostream &os, const bus_stop &gp);
     /* each bus stop contains the position info */
     
+public:
     gps latitude;
     gps longitude;
-public:
     bus_stop(gps lat, gps lng):latitude(lat),longitude(lng){}
 };
 
