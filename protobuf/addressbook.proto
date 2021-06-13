@@ -1,0 +1,12 @@
+
+syntax = "proto3";
+package data;
+
+message Gps {
+    double degrees = 1;
+}
+
+message BusStop {
+    Gps latitude = 1;
+    Gps longitude = 2;
+}
