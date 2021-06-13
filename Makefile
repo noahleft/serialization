@@ -1,6 +1,6 @@
 
-prog: *.cpp
-	g++ main.cpp -o $@
+prog: *.cpp data/*
+	g++ -Idata main.cpp -o $@
 
 clean:
 	rm prog
