@@ -14,7 +14,7 @@ public:
 };
 
 std::ostream & operator<<(std::ostream &os, const bus_stop &bs) {
-    return os << bs.latitude << " " << bs.longitude;
+    return os << "lat:" << bs.latitude << " lng:" << bs.longitude;
 }
 
 

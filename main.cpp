@@ -30,6 +30,8 @@ int main() {
     std::cout << str << std::endl;
 
     google::protobuf::ShutdownProtobufLibrary();
+#else
+    std::cout << *root << std::endl;
 #endif
 
     return 0;
