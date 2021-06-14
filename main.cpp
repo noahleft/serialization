@@ -2,7 +2,7 @@
 #include <sstream>
 #include "data.hpp"
 
-#ifdef BOOST_EXAMPLE
+#if defined(BOOST_EXAMPLE)
 #include "bus_stop_ser.hpp"
 
 int main() {
@@ -15,9 +15,7 @@ int main() {
 
     return 0;
 }
-#endif
-
-#ifdef PROTOBUF_EXAMPLE
+#elif defined(PROTOBUF_EXAMPLE)
 #include "addressbook.pb.h"
 #include <google/protobuf/text_format.h>
 
