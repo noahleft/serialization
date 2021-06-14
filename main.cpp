@@ -4,24 +4,20 @@
 
 #if defined(BOOST_EXAMPLE)
 #include "bus_stop_ser.hpp"
+#elif defined(PROTOBUF_EXAMPLE)
+#include "addressbook.pb.h"
+#include <google/protobuf/text_format.h>
+#endif
 
 int main() {
     bus_stop *root = get_serializable_object();
 
+#if defined(BOOST_EXAMPLE)
     std::stringstream buf;
     boost::archive::text_oarchive ar(buf);
     ar << *root ;
     std::cout<< buf.str() << std::endl;
-
-    return 0;
-}
 #elif defined(PROTOBUF_EXAMPLE)
-#include "addressbook.pb.h"
-#include <google/protobuf/text_format.h>
-
-int main() {
-    bus_stop *root = get_serializable_object();
-    
     data::Gps *gps;
     data::BusStop bus_stop;
     gps = bus_stop.mutable_latitude();
@@ -34,7 +30,7 @@ int main() {
     std::cout << str << std::endl;
 
     google::protobuf::ShutdownProtobufLibrary();
+#endif
 
     return 0;
 }
-#endif
