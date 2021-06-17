@@ -10,3 +10,7 @@ message BusStop {
     Gps latitude = 1;
     Gps longitude = 2;
 }
+
+message BusRoute {
+    repeated BusStop routes = 1;
+}

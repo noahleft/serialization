@@ -3,14 +3,14 @@
 #include "data.hpp"
 
 #if defined(BOOST_EXAMPLE)
-#include "bus_stop_ser.hpp"
+#include "bus_route_ser.hpp"
 #elif defined(PROTOBUF_EXAMPLE)
 #include "addressbook.pb.h"
 #include <google/protobuf/text_format.h>
 #endif
 
 int main() {
-    bus_stop *root = get_serializable_object();
+    bus_route *root = get_serializable_object();
 
 #if defined(BOOST_EXAMPLE)
     std::stringstream buf;
@@ -19,14 +19,23 @@ int main() {
     std::cout<< buf.str() << std::endl;
 #elif defined(PROTOBUF_EXAMPLE)
     data::Gps *gps;
-    data::BusStop bus_stop;
-    gps = bus_stop.mutable_latitude();
-    gps->set_degrees(root->latitude.degrees);
-    gps = bus_stop.mutable_longitude();
-    gps->set_degrees(root->longitude.degrees);
+    data::BusStop *bs;
+    data::BusRoute br;
+    bs = br.add_routes();
+    bus_stop *current = root->routes[0];
+    gps = bs->mutable_latitude();
+    gps->set_degrees(current->latitude.degrees);
+    gps = bs->mutable_longitude();
+    gps->set_degrees(current->longitude.degrees);
+    bs = br.add_routes();
+    current = root->routes[1];
+    gps = bs->mutable_latitude();
+    gps->set_degrees(current->latitude.degrees);
+    gps = bs->mutable_longitude();
+    gps->set_degrees(current->longitude.degrees);
     
     std::string str;
-    google::protobuf::TextFormat::PrintToString(bus_stop , &str);
+    google::protobuf::TextFormat::PrintToString(br , &str);
     std::cout << str << std::endl;
 
     google::protobuf::ShutdownProtobufLibrary();
