@@ -11,6 +11,11 @@ public:
     bus_stop(gps lat, gps lng):latitude(lat),longitude(lng){}
 };
 
-
+class bus_stop_detail: public bus_stop
+{
+public:
+    std::string stop_name;
+    bus_stop_detail(std::string stop_name, gps lat, gps lng):bus_stop(lat, lng), stop_name(stop_name){}
+};
 
 #endif
