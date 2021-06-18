@@ -6,15 +6,15 @@ all: $(SOURCES)
 
 exec_boost: *.cpp data/* boost_serialization/*
 	g++ -Idata -Iboost_serialization -DBOOST_EXAMPLE $(CXXFLAGS) -o $@ \
-		main.cpp -lboost_serialization
+		main.cpp data.cpp boost_exec.cpp -lboost_serialization
 
 exec_protobuf: *.cpp data/* protobuf/*
 	protoc -I=protobuf --cpp_out=protobuf protobuf/addressbook.proto
 	g++ -Idata -Iprotobuf -DPROTOBUF_EXAMPLE $(CXXFLAGS) -o $@ \
-		main.cpp protobuf/*.cc -lprotobuf
+		main.cpp data.cpp protobuf_exec.cpp protobuf/*.cc -lprotobuf
 
 exec_print: *.cpp data/*
-	g++ -Idata $(CXXFLAGS) main.cpp -o $@
+	g++ -Idata $(CXXFLAGS) main.cpp data.cpp -o $@
 
 clean:
 	rm -f $(SOURCES)
