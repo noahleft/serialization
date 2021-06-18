@@ -3,6 +3,9 @@
 #define BUS_ROUTE_H
 #include <vector>
 
+/*
+    bus_route is a colloection of bus_stop.
+*/
 class bus_route
 {
     friend std::ostream & operator<<(std::ostream &os, const bus_route &br);    
