@@ -31,3 +31,7 @@
  2. [relational database](https://en.wikipedia.org/wiki/Relational_database)
  > - Use traditional CRUD operations to store the data.
  > - Ex: SQLite
+ 3. [key-value database](https://en.wikipedia.org/wiki/Key–value_database)
+ > - Non-relational database that uses a simple key-value method.
+ > - Ex: Redis
+
