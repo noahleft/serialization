@@ -9,11 +9,11 @@
  
  (1) Boost Serialization:
  - define the serialize function on the target data
- - pointer referencing: object tracking on the pointer address
- - cross version: user need to handle the version migration on serialize function
+ 1. ✅ pointer referencing: object tracking on the pointer address
+ 2. ❌ cross version: user need to handle the version migration on serialize function
  
  (2) Google Protocol Buffer
  - define the IDL and construct the IDL model
- - pointer referencing: user need to record the relationship on IDL model
- - cross version: protocl buffer support the cross version natively
+ 1. ❌ pointer referencing: user need to record the relationship on IDL model
+ 2. ✅ cross version: protocl buffer support the cross version natively
 
