@@ -15,8 +15,7 @@ namespace serialization {
 
     template<class Archive>
     void serialize(Archive & ar, bus_stop_detail & obj, const unsigned int version) {
-        ar & obj.latitude;
-        ar & obj.longitude;
+        boost::serialization::base_object<bus_stop>(obj);
         ar & obj.stop_name;
     }
 

@@ -10,8 +10,8 @@ class bus_route
 {
     friend std::ostream & operator<<(std::ostream &os, const bus_route &br);    
 public:
-    std::vector<bus_stop_detail*> routes;
-    bus_route(std::initializer_list<bus_stop_detail*> br):routes(br){}
+    std::vector<bus_stop*> routes;
+    bus_route(std::initializer_list<bus_stop*> br):routes(br){}
 };
 
 #endif
