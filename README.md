@@ -23,3 +23,8 @@
  1. ❌ pointer referencing: user need to record the relationship on IDL model
  2. ✅ cross version: protocl buffer support the cross version natively
  3. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
+
+# related approach
+ 1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing)
+ 2. [relational database](https://en.wikipedia.org/wiki/Relational_database)
+
