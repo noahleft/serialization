@@ -9,6 +9,7 @@ message Gps {
 message BusStop {
     Gps latitude = 1;
     Gps longitude = 2;
+    optional string stop_name = 3;
 }
 
 message BusRoute {

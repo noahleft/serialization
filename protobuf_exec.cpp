@@ -8,17 +8,19 @@ extern std::string serialize_protobuf(bus_route *root) {
     data::BusStop *bs;
     data::BusRoute br;
     bs = br.add_routes();
-    bus_stop *current = root->routes[0];
+    bus_stop_detail *current = (bus_stop_detail*)root->routes[0];
     gps = bs->mutable_latitude();
     gps->set_degrees(current->latitude.degrees);
     gps = bs->mutable_longitude();
     gps->set_degrees(current->longitude.degrees);
+    bs->set_stop_name(current->stop_name);
     bs = br.add_routes();
-    current = root->routes[1];
+    current = (bus_stop_detail*)root->routes[1];
     gps = bs->mutable_latitude();
     gps->set_degrees(current->latitude.degrees);
     gps = bs->mutable_longitude();
     gps->set_degrees(current->longitude.degrees);
+    bs->set_stop_name(current->stop_name);
     
     std::string str;
     google::protobuf::TextFormat::PrintToString(br , &str);
