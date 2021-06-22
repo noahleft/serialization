@@ -37,3 +37,10 @@
  > - Non-relational database that uses a simple key-value method.
  > - Ex: Redis
 
+ # special considerations
+ 1. versioning
+ 2. portability
+ 3. human-readable
+ 4. partial loading
+ 5. random access
+ 6. error handling
