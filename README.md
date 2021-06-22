@@ -27,16 +27,13 @@
  > 3. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
 
 # related approach
- 1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing)
+ 1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing) (Process snapshot)
  > - Check point the process to disk and restart later. 
- > - Process snapshot.
  > - Ex: Distributed MultiThreaded CheckPointing (DMTCP), Checkpoint/Restore In Userspace (CRIU), Berkeley Lab Checkpoint/Restart (BCLR)
- 2. [relational database](https://en.wikipedia.org/wiki/Relational_database)
+ 2. [relational database](https://en.wikipedia.org/wiki/Relational_database) (Schema-based)
  > - Use traditional CRUD operations to store the data.
- > - Schema-based
  > - Ex: SQLite
- 3. [key-value database](https://en.wikipedia.org/wiki/Key–value_database)
+ 3. [key-value database](https://en.wikipedia.org/wiki/Key–value_database) (Distributed Hashing)
  > - Non-relational database that uses a simple key-value method.
- > - Key-value based (like Hashing)
  > - Ex: Redis
 
