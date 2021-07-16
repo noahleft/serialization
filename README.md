@@ -11,20 +11,31 @@
 
  symbol meanings:
  - ✅ Pros:    this approach can natively support it.
- - ❌ Cons:    this approach needs extra handling.
- - ⚠️ Neutral: *both* approach needs extra handling.
+ - ❌ Cons:    this approach can not handle it well.
+ - ⚠️ Neutral: this approach needs some extra handling. But it's do-able in most cases.
  
  1. Boost Serialization: (serialize directly)
  > - Define the serialize function on the target data.
  > 1. ✅ pointer referencing: object tracking on the pointer address
+ > 2. ⚠️ cross version: user need to handle the version migration on serialize function
+ > 3. ⚠️ inheritance: user need to export the base-derived relationship
+ > 4. ❌ development: foreach header change, the developer needs to handle the serialization parts.
+
+ 2. Boost Serialization + Lex/Yacc code generation: (serialize directly)
+ > - Use header file as IDL model to generate the serialize function on the target data.
+ > 1. ✅ pointer referencing: object tracking on the pointer address
  > 2. ❌ cross version: user need to handle the version migration on serialize function
  > 3. ⚠️ inheritance: user need to export the base-derived relationship
+ > 4. ✅ development: with well-defined code generation, no extra work needed.
+ > In general, code generation would help RD to auto-gen the serialization function. 
+ > But it would cause the side-effect on forward/backward compatible.
  
- 2. Google Protocol Buffer: (IDL based)
+ 3. Google Protocol Buffer: (IDL based)
  > - Define the IDL model. Then, translate the target data to the IDL model.
  > 1. ❌ pointer referencing: user need to record the relationship on IDL model
  > 2. ✅ cross version: protocl buffer support the cross version natively
  > 3. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
+ > 4. ✅ development: with well-defined IDL model, no extra work needed.
 
 # related approach
  1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing) (Process snapshot)
@@ -44,3 +55,5 @@
  4. partial loading
  5. random access
  6. error handling
+ 7. learning curve for new developer
+ 8. customize memory allocation (memory pool)
