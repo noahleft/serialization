@@ -23,3 +23,4 @@ exec_print: *.cpp data/*
 clean:
 	rm -f $(SOURCES)
 	rm -f protobuf/*.h protobuf/*.cc
+	rm code_generation/preprocessed_*.hpp code_generation/*.list
