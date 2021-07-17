@@ -1,12 +1,16 @@
 
 CXXFLAGS = -std=c++11
-SOURCES = exec_boost exec_protobuf exec_print
+SOURCES = exec_boost exec_codegen exec_protobuf exec_print
 
 all: $(SOURCES)
 
 exec_boost: *.cpp data/* boost_serialization/*
 	g++ -Idata -Iboost_serialization -DBOOST_EXAMPLE $(CXXFLAGS) -o $@ \
 		main.cpp data.cpp boost_exec.cpp -lboost_serialization
+
+exec_codegen: *.cpp data/* code_generation/*
+	python3 code_generation/extractSerializableType.py data/*.hpp > code_generation/serializable.list
+	g++ data/data.hpp -E -o code_generation/preprocessed_data.hpp
 
 exec_protobuf: *.cpp data/* protobuf/*
 	protoc -I=protobuf --cpp_out=protobuf protobuf/addressbook.proto
