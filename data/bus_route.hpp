@@ -10,6 +10,7 @@ class bus_route
 {
     friend std::ostream & operator<<(std::ostream &os, const bus_route &br);    
 public:
+#pragma bus_stop_detail
     std::vector<bus_stop*> routes;
     bus_route(std::initializer_list<bus_stop*> br):routes(br){}
 };

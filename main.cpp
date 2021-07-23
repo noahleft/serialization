@@ -7,6 +7,8 @@ int main() {
 
 #if defined(BOOST_EXAMPLE)
     buf = serialize_boost(root);
+#elif defined(CODEGEN_EXAMPLE)
+    buf = serialize_codegen(root);
 #elif defined(PROTOBUF_EXAMPLE)
     buf = serialize_protobuf(root);
 #else
