@@ -9,6 +9,16 @@ extern bus_route* get_serializable_object() {
     return br1;
 }
 
+extern bool is_equal(bus_route *a, bus_route *b) {
+    std::string strA = dump_object(a);
+    std::string strB = dump_object(b);
+    if(strA==strB) return true;
+
+    std::cout << strA << std::endl;
+    std::cout << strB << std::endl;
+    return false;
+}
+
 extern std::string dump_object(bus_route *root) {
     std::stringstream buf;
     buf << *root ;

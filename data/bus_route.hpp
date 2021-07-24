@@ -13,6 +13,7 @@ public:
 #pragma bus_stop_detail
     std::vector<bus_stop*> routes;
     bus_route(std::initializer_list<bus_stop*> br):routes(br){}
+    bus_route(){} /* for boost serialization */
 };
 
 #endif

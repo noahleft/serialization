@@ -9,6 +9,7 @@ public:
     /* Decimal format */
     double degrees;
     gps(double d):degrees(d){}
+    gps(){} /* for boost serialization */
 };
 
 
