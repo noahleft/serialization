@@ -38,7 +38,7 @@
  > 2. ✅ cross version: protocl buffer support the cross version natively
  > 3. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 4. ✅ development: with well-defined IDL model, no extra work needed.
- > 5. ❌ memory consumption: ProtoBuf needs to *map* the target data to IDL model.
+ > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
  >> The modification on the generated code is not recommended in ProtoBuf documentation.
 
 # related approach
