@@ -13,6 +13,13 @@
  - ✅ Pros:    this approach can natively support it.
  - ❌ Cons:    this approach can not handle it well.
  - ⚠️ Neutral: this approach needs some extra handling. But it's do-able in most cases.
+
+|                    | Boost Serialization | Code Generation| Google ProtoBuf |
+| ------------------ | ------------- | ------------- | ------------- |
+| Pointer Referencing| ✅ Natively | ✅ Natively | ❌ |
+| Cross Versioning.  | ⚠️ | ❌ | ✅ Natively |
+| Development Effort | ❌ | ✅| ✅ |
+
  
  1. Boost Serialization: (serialize directly)
  > - Define the serialize function on the target data.
@@ -22,7 +29,7 @@
  > 4. ❌ development: foreach header change, the developer needs to handle the serialization parts.
  > 5. ✅ memory consumption: serailze *directly*, so no extra memory required.
 
- 2. Boost Serialization + Lex/Yacc code generation: (serialize directly)
+ 2. Code Generation (Implemented by Boost Serialization + Lex/Yacc code generation):
  > - Use header file as IDL model to generate the serialize function on the target data.
  > 1. ✅ pointer referencing: object tracking on the pointer address
  > 2. ❌ cross version: user need to handle the version migration on serialize function
