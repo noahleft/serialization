@@ -16,35 +16,37 @@
 
 |                    | Boost Serialization | Code Generation| Google ProtoBuf |
 | ------------------ | ------------- | ------------- | ------------- |
-| Pointer Referencing| ✅ Natively | ✅ Natively | ❌ |
-| Cross Versioning.  | ⚠️ | ❌ | ✅ Natively |
-| Development Effort | ❌ | ✅| ✅ |
+| Pointer Referencing| ✅ Natively   | ✅ Natively | ❌ |
+| Cross Versioning.  | ⚠️             | ❌ | ✅ Natively |
+| Development Effort | ❌            | ✅| ✅ |
 
  
  1. Boost Serialization: (serialize directly)
  > - Define the serialize function on the target data.
  > 1. ✅ pointer referencing: object tracking on the pointer address
  > 2. ⚠️ cross version: user need to handle the version migration on serialize function
- > 3. ⚠️ inheritance: user need to export the base-derived relationship
- > 4. ❌ development: foreach header change, the developer needs to handle the serialization parts.
+ > 3. ❌ development: foreach header change, the developer needs to handle the serialization parts.
+ >> In general development flow, the database is controlled by a small group of developers.
+ >> For each definition changes, it will require database expert to enhance the corresponding changes.
+ > 4. ⚠️ inheritance: user need to export the base-derived relationship
  > 5. ✅ memory consumption: serailze *directly*, so no extra memory required.
 
  2. Code Generation (Implemented by Boost Serialization + Lex/Yacc code generation):
  > - Use header file as IDL model to generate the serialize function on the target data.
  > 1. ✅ pointer referencing: object tracking on the pointer address
  > 2. ❌ cross version: user need to handle the version migration on serialize function
- > 3. ⚠️ inheritance: user need to export the base-derived relationship
- > 4. ✅ development: with well-defined code generation, no extra work needed.
+ > 3. ✅ development: with well-defined code generation, no extra work needed.
  >> In general, code generation would help RD to auto-gen the serialization function. 
  >> But it would cause the side-effect on forward/backward compatible.
+ > 4. ⚠️ inheritance: user need to export the base-derived relationship
  > 5. ✅ memory consumption: serailze *directly*, so no extra memory required.
  
  3. Google Protocol Buffer: (IDL based)
  > - Define the IDL model in ProtoBuf format. Then, translate the target data to the IDL model.
  > 1. ❌ pointer referencing: user need to record the relationship on IDL model. A general solution is indexing.
  > 2. ✅ cross version: protocl buffer support the cross version natively
- > 3. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
- > 4. ✅ development: with well-defined IDL model, no extra work needed.
+ > 3. ✅ development: with well-defined IDL model, no extra work needed.
+ > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
  >> The modification on the generated code is not recommended in ProtoBuf documentation.
 
