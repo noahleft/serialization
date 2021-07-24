@@ -48,7 +48,7 @@ class_name: U_STRING {
 
 inheritance: 
 	| S_COLON S_PUBLIC U_STRING { 
-		printf("\nboost::serialization::base_object<%s>(obj);", $3);
+		printf("\nar & boost::serialization::base_object<%s>(obj);", $3);
 	}
 ;
 
