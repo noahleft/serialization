@@ -13,9 +13,6 @@ extern bool is_equal(bus_route *a, bus_route *b) {
     std::string strA = dump_object(a);
     std::string strB = dump_object(b);
     if(strA==strB) return true;
-
-    std::cout << strA << std::endl;
-    std::cout << strB << std::endl;
     return false;
 }
 
