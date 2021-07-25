@@ -2,7 +2,7 @@
 #include <sstream>
 #include "data.hpp"
 
-extern bus_group* get_serializable_object() {
+extern ROOT_TYPE* get_serializable_object() {
     bus_stop_detail * bs281_1 = new bus_stop_detail("Gancheng Station", gps(24.14092667), gps(120.686055));
     bus_stop_detail * bs281_2 = new bus_stop_detail("Taichung Railway Station", gps(24.13790333), gps(120.685305));
     bus_stop_detail * bs281_3 = new bus_stop_detail("Taichung Winery (Fuxing Rd.)", gps(24.13408462), gps(120.6821537));
@@ -21,14 +21,14 @@ extern bus_group* get_serializable_object() {
     return bg1;
 }
 
-extern bool is_equal(bus_group *a, bus_group *b) {
+extern bool is_equal(ROOT_TYPE *a, ROOT_TYPE *b) {
     std::string strA = dump_object(a);
     std::string strB = dump_object(b);
     if(strA==strB) return true;
     return false;
 }
 
-extern std::string dump_object(bus_group *root) {
+extern std::string dump_object(ROOT_TYPE *root) {
     std::stringstream buf;
     buf << *root ;
     return buf.str();
