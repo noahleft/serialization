@@ -15,3 +15,7 @@ message BusStop {
 message BusRoute {
     repeated BusStop routes = 1;
 }
+
+message BusGroup {
+    repeated BusRoute groups = 1;
+}

@@ -23,9 +23,19 @@ static void translate_bus_route(data::BusRoute *model, bus_route *data) {
     }
 }
 
-extern std::string serialize_protobuf(bus_route *root) {
-    data::BusRoute model;
-    translate_bus_route(&model, root);
+// adaptor: translate bus group data to protobuf required model
+static void translate_bus_group(data::BusGroup *model, bus_group *data) {
+    data::BusRoute *model_bus_route;
+    for(unsigned int i=0; i<data->groups.size(); i++) {
+        model_bus_route = model->add_groups();
+        bus_route *current = data->groups[i];
+        translate_bus_route(model_bus_route, current);
+    }
+}
+
+extern std::string serialize_protobuf(bus_group *root) {
+    data::BusGroup model;
+    translate_bus_group(&model, root);
     
     std::string str;
     model.SerializeToString(&str);
@@ -57,11 +67,22 @@ static bus_route* restore_bus_route(data::BusRoute *model) {
     return data;
 }
 
-extern bus_route* deserialize_protobuf(std::string str) {
-    data::BusRoute model;
+// adaptor: translate back the protobuf model to bus group data
+static bus_group* restore_bus_group(data::BusGroup *model) {
+    bus_group* data = new bus_group();
+    for(unsigned i=0; i<model->groups_size(); i++) {
+        auto model_bus_route = model->groups(i);
+        bus_route* broute = restore_bus_route(&model_bus_route);
+        data->groups.push_back(broute);
+    }
+    return data;
+}
+
+extern bus_group* deserialize_protobuf(std::string str) {
+    data::BusGroup model;
     model.ParseFromString(str);
 
-    bus_route* root = restore_bus_route(&model);
+    bus_group* root = restore_bus_group(&model);
 
     google::protobuf::ShutdownProtobufLibrary();
     return root;
