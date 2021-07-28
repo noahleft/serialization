@@ -1,17 +1,27 @@
-# serialization
- compare different approach on serialization
- 
- Firstly, what is serailization?
+# Serialization Techniques Comparsion
+ What is serailization?
 
  the definition of serialization from wiki:
  
- [Serialization](https://en.wikipedia.org/wiki/Serialization) is the process of translating a data structure or object state into a format that can be stored (for example, in a file or memory data buffer) or transmitted (for example, across a computer network) and reconstructed later (possibly in a different computer environment).
+ >[Serialization](https://en.wikipedia.org/wiki/Serialization) is the process of translating a data structure or object state into a format that can be stored  (for example, in a file or memory data buffer) or transmitted (for example, across a computer network) and reconstructed later (possibly in a different computer environment).
+ 
+ In short, serialization is to save-and-restore the program data in a proper way. With given data entry, the program would serialize the data to the disk.
+ 
+ A general study is Boost Serialization which is peer-reviewed C++ library.
+ > Features of Boost Serialization:
+ > - It meets C++'s zero-overhead principle (a.k.a don't pay for what you don't use).
+ > - Provides flexibility to customize everything.
+ 
+ In the other side, Protocol Buffer which is Google's serialization library.
+ > Features of Google ProtoBuf:
+ > - Requires IDL model abstraction between target data and serialized format.
+ > - Provides forward and backward compatible natively between IDL and Serialized format.
 
- To do so, two different approaches are proposed.
+ The following table shows the comparsion on different techniques.
 
  symbol meanings:
  - ✅ Pros:    this approach can natively support it.
- - ❌ Cons:    this approach can not handle it well.
+ - ❌ Cons:    this approach can not handle it well. Require significant effect.
  - ⚠️ Neutral: this approach needs some extra handling. But it's do-able in most cases.
 
 |                    | Boost Serialization | Code Generation| Google ProtoBuf |
@@ -49,6 +59,46 @@
  > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
  >> The modification on the generated code is not recommended in ProtoBuf documentation.
+
+# demo example
+
+```C++
+class bus_route
+{
+public:
+#pragma bus_stop_detail
+    std::vector<bus_stop*> routes;
+    std::string route_name;       // add a string "route_name" as header change
+};
+```
+1. The modification for Boost Serialization,
+```C++
+void serialize(Archive & ar, bus_route & obj, const unsigned int version) {
+    ar.template register_type<bus_stop_detail>();
+    ar & obj.routes;
+    ar & obj.route_name;          // corresponding serialization code
+}
+ ```
+2. The modification for Code Generation
+> Serialization code auto-generation. No modification required.
+
+3. The modification for ProtoBuf
+```ProtoBuf
+message BusRoute {
+    repeated BusStop routes = 1;
+    optional string route_name = 2;// corresponding ProtoBuf IDL model
+}
+```
+```C++
+static void translate_bus_route(data::BusRoute *model, bus_route *data) {
+    model->set_route_name(data->route_name); // corresponding bridge between data and IDL
+    ...
+}
+static bus_route* restore_bus_route(data::BusRoute *model) {
+    data->route_name = model->route_name(); // corresponding bridge between data and IDL
+    ...
+}
+```
 
 # related approach
  1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing) (Process snapshot)
