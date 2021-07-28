@@ -12,7 +12,8 @@ class bus_route
 public:
 #pragma bus_stop_detail
     std::vector<bus_stop*> routes;
-    bus_route(std::initializer_list<bus_stop*> br):routes(br){}
+    std::string route_name;
+    bus_route(std::string name,std::initializer_list<bus_stop*> br):routes(br), route_name(name){}
     bus_route(){} /* for boost serialization */
 };
 

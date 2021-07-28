@@ -12,6 +12,7 @@ namespace serialization {
     void serialize(Archive & ar, bus_route & obj, const unsigned int version) {
         ar.template register_type<bus_stop_detail>();
         ar & obj.routes;
+        ar & obj.route_name;
     }
 }
 }

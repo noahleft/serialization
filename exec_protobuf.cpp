@@ -16,6 +16,7 @@ static void translate_bus_stop(data::BusStop *model_bus_stop, bus_stop_detail *d
 // adaptor: translate bus route data to protobuf required model
 static void translate_bus_route(data::BusRoute *model, bus_route *data) {
     data::BusStop *model_bus_stop;
+    model->set_route_name(data->route_name);
     for(unsigned int i=0; i<data->routes.size(); i++) {
         model_bus_stop = model->add_routes();
         bus_stop_detail *current = (bus_stop_detail*)data->routes[i];
@@ -59,6 +60,7 @@ static bus_stop_detail* restore_bus_stop(data::BusStop *model) {
 // adaptor: translate back the protobuf model to bus route data
 static bus_route* restore_bus_route(data::BusRoute *model) {
     bus_route* data = new bus_route();
+    data->route_name = model->route_name();
     for(unsigned i=0; i<model->routes_size(); i++) {
         auto model_bus_stop = model->routes(i);
         bus_stop_detail* bstop = restore_bus_stop(&model_bus_stop);
