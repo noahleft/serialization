@@ -24,11 +24,11 @@
  - ❌ Cons:    this approach can not handle it well. Require significant effect.
  - ⚠️ Neutral: this approach needs some extra handling. But it's do-able in most cases.
 
-|                    | Boost Serialization | Code Generation| Google ProtoBuf |
-| ------------------ | ------------- | ------------- | ------------- |
-| Pointer Referencing| ✅ Natively   | ✅ Natively | ❌ |
-| Cross Versioning.  | ⚠️             | ❌ | ✅ Natively |
-| Development Effort | ❌            | ✅| ✅ |
+|                    | Boost Serialization | Code Generation| Google ProtoBuf | ProtoBuf+Tracking |
+| ------------------ | ------------- | ------------- | ------------- | ------------- |
+| Pointer Referencing| ✅ Natively   | ✅ Natively | ❌ | ⚠️ Indexing |
+| Cross Versioning.  | ⚠️             | ❌ | ✅ Natively |✅ Natively |
+| Development Effort | ❌            | ✅| ✅ | ❌ |
 
  
  1. Boost Serialization: (serialize directly)
@@ -56,6 +56,15 @@
  > 1. ❌ pointer referencing: user need to record the relationship on IDL model. A general solution is indexing.
  > 2. ✅ cross version: protocl buffer support the cross version natively
  > 3. ✅ development: with well-defined IDL model, no extra work needed.
+ > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
+ > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
+ >> The modification on the generated code is not recommended in ProtoBuf documentation.
+
+ 4. ProtoBuf+Tracking (Implemented by Indexing shared object)
+ > - Define the IDL model in ProtoBuf format. **And indexing shared object by developer.** Then, translate the target data to the IDL model.
+ > 1. ⚠️ pointer referencing: the relationship is indexed as shared object on IDL model.
+ > 2. ✅ cross version: protocl buffer support the cross version natively
+ > 3. ❌ development: indexing requires expert maintenace. Especially on the question "how many shared objects in your program?"
  > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
  >> The modification on the generated code is not recommended in ProtoBuf documentation.
