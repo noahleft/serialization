@@ -1,0 +1,23 @@
+
+syntax = "proto3";
+package data;
+
+message Gps {
+    double degrees = 1;
+}
+
+message BusStop {
+    Gps latitude = 1;
+    Gps longitude = 2;
+    optional string stop_name = 3;
+}
+
+message BusRoute {
+    repeated int32 routes_index = 1;
+    optional string route_name = 2;
+}
+
+message BusGroup {
+    repeated BusRoute groups = 1;
+    repeated BusStop bus_stop_sequence = 2;
+}

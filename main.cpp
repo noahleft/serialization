@@ -20,6 +20,11 @@ int main() {
     auto des = deserialize_protobuf(buf);
     std::cout << "Is serialize/deserialize result equivalent:" << is_equal(root, des) << std::endl;
     std::cout << "Is serialize/deserialize result identical :" << is_identical(root, des) << std::endl;
+#elif defined(PROTOBUF_TRACK_EXAMPLE)
+    buf = serialize_protobuf(root);
+    auto des = deserialize_protobuf(buf);
+    std::cout << "Is serialize/deserialize result equivalent:" << is_equal(root, des) << std::endl;
+    std::cout << "Is serialize/deserialize result identical :" << is_identical(root, des) << std::endl;
 #else
     buf = dump_object(root);
     std::cout << buf << std::endl;
