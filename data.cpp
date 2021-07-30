@@ -11,7 +11,7 @@ extern ROOT_TYPE* get_serializable_object() {
     bus_stop_detail * bs281_5 = new bus_stop_detail("Linzucuo", gps(24.13187833), gps(120.6770733));
     bus_stop_detail * bs281_6 = new bus_stop_detail("Fuxing-Youheng Intersection", gps(24.13144333), gps(120.67581));
     bus_route *br281 = new bus_route("r281", {bs281_1,bs281_2,bs281_3,bs281_4,bs281_5,bs281_6});
-    bus_stop_detail * bs284_1 = bs281_2;
+    bus_stop_detail * bs284_1 = bs281_2; // share the data object
     bus_stop_detail * bs284_2 = new bus_stop_detail("The Third Market", gps(24.133007), gps(120.68354));
     bus_stop_detail * bs284_3 = new bus_stop_detail("Taichung  El. School", gps(24.130257), gps(120.685017));
     bus_stop_detail * bs284_4 = new bus_stop_detail("NCHU Affiliated Agricultural Senior High School(Taichung Rd.)", gps(24.12746833), gps(120.6845183));
@@ -39,6 +39,10 @@ static std::set<bus_stop*> build_bus_stop_set(ROOT_TYPE *a) {
     return ret_set;
 }
 
+// definition for identical between a and b
+// if    a->ptrA and a->ptrB are pointing to the same pointer address
+// then  b->ptrA and b->ptrB need to point to the same pointer address
+// in this case, the bus_stop br281_2 and br284_1 are pointing to the same pointer address
 extern bool is_identical(ROOT_TYPE *a, ROOT_TYPE *b) {
     if(is_equal(a,b)) {
         std::set<bus_stop*> aset, bset;
