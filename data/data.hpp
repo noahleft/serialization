@@ -12,5 +12,6 @@ extern std::string serialize_protobuf(ROOT_TYPE *root);
 extern ROOT_TYPE* deserialize_protobuf(std::string str);
 
 extern bool is_equal(ROOT_TYPE *a, ROOT_TYPE *b);
+extern bool is_identical(ROOT_TYPE *a, ROOT_TYPE *b);
 extern std::string dump_object(ROOT_TYPE *root);
 #endif

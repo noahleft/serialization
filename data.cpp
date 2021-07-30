@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <set>
 #include "data.hpp"
 
 extern ROOT_TYPE* get_serializable_object() {
@@ -10,7 +11,7 @@ extern ROOT_TYPE* get_serializable_object() {
     bus_stop_detail * bs281_5 = new bus_stop_detail("Linzucuo", gps(24.13187833), gps(120.6770733));
     bus_stop_detail * bs281_6 = new bus_stop_detail("Fuxing-Youheng Intersection", gps(24.13144333), gps(120.67581));
     bus_route *br281 = new bus_route("r281", {bs281_1,bs281_2,bs281_3,bs281_4,bs281_5,bs281_6});
-    bus_stop_detail * bs284_1 = new bus_stop_detail("Taichung Railway Station", gps(24.136313), gps(120.68301));
+    bus_stop_detail * bs284_1 = bs281_2;
     bus_stop_detail * bs284_2 = new bus_stop_detail("The Third Market", gps(24.133007), gps(120.68354));
     bus_stop_detail * bs284_3 = new bus_stop_detail("Taichung  El. School", gps(24.130257), gps(120.685017));
     bus_stop_detail * bs284_4 = new bus_stop_detail("NCHU Affiliated Agricultural Senior High School(Taichung Rd.)", gps(24.12746833), gps(120.6845183));
@@ -25,6 +26,26 @@ extern bool is_equal(ROOT_TYPE *a, ROOT_TYPE *b) {
     std::string strA = dump_object(a);
     std::string strB = dump_object(b);
     if(strA==strB) return true;
+    return false;
+}
+
+static std::set<bus_stop*> build_bus_stop_set(ROOT_TYPE *a) {
+    std::set<bus_stop*> ret_set;
+    for(unsigned int i = 0 ; i < a->groups.size(); i++) {
+        for(unsigned int j = 0; j < a->groups[i]->routes.size(); j++) {
+            ret_set.insert(a->groups[i]->routes[j]);
+        }
+    }
+    return ret_set;
+}
+
+extern bool is_identical(ROOT_TYPE *a, ROOT_TYPE *b) {
+    if(is_equal(a,b)) {
+        std::set<bus_stop*> aset, bset;
+        aset = build_bus_stop_set(a);
+        bset = build_bus_stop_set(b);
+        if(aset.size()==bset.size()) return true;
+    }
     return false;
 }
 
