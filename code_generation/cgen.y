@@ -31,13 +31,9 @@ content:
 	   | content class_block
 ;
 
-class_block: S_CLASS {
-		printf("SER_SCOPE_BEGIN\n");
-	} class_name S_BLEFT class_content {
+class_block: S_CLASS class_name S_BLEFT class_content {
 		printf("}\n");
-	} S_BRIGHT {
-		printf("SER_SCOPE_END\n\n");
-	} S_SEMI
+	} S_BRIGHT S_SEMI
 ;
 
 class_name: U_STRING {
@@ -97,10 +93,16 @@ int main(int argc, char const *argv[]) {
 	printf("#include \"data.hpp\"\n");
 	printf("#include \"codegen_macro.hpp\"\n");
 
+	printf("namespace boost {\n");
+	printf("namespace serialization {\n");
+	printf("\n\n");
+
 	do {
 		yyparse();
 	} while(!feof(yyin));
 
+	printf("} // end of namespace serialization \n");
+	printf("} // end of namespace boost\n");
 	printf("#endif\n");
 
 	return 0;
