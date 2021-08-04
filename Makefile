@@ -6,7 +6,7 @@ DIR_PROTO = protobuf
 DIR_TRACK = protobuf_tracking
 
 CXXFLAGS = -std=c++11
-DATA_SRC = -I$(DIR_DATA) main.cpp data.cpp $(CXXFLAGS)
+DATA_SRC = -I$(DIR_DATA) main.cpp $(DIR_DATA)/data.cpp $(CXXFLAGS)
 SOURCES  = exec_boost exec_codegen exec_protobuf exec_protobuf_tracking exec_print
 
 all: $(SOURCES)
