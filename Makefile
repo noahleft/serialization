@@ -15,7 +15,7 @@ exec_boost: *.cpp $(DIR_DATA)/* $(DIR_BOOST)/*
 	g++ -I$(DIR_BOOST) -DBOOST_EXAMPLE $(DATA_SRC) -o $@ \
 		exec_boost.cpp -lboost_serialization
 
-cgen_parser: $(DIR_CGEN)/*
+cgen_parser: $(DIR_CGEN)/* $(DIR_DATA)/*
 	make -C $(DIR_CGEN)
 
 exec_codegen: *.cpp $(DIR_DATA)/* $(DIR_CGEN)/* cgen_parser
