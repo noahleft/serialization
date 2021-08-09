@@ -11,7 +11,7 @@ public:
     gps longitude;
     bus_stop(gps lat, gps lng):latitude(lat),longitude(lng){}
     bus_stop(){} /* for boost serialization */
-    virtual ~bus_stop() {}
+    virtual ~bus_stop() = 0;
 };
 
 class bus_stop_detail: public bus_stop

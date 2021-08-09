@@ -81,3 +81,5 @@ std::ostream & operator<<(std::ostream &os, const bus_group &bg) {
     }
     return os;
 }
+
+bus_stop::~bus_stop() {}
