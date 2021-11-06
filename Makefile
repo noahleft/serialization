@@ -43,5 +43,6 @@ clean:
 	rm -f $(SOURCES)
 	rm -f $(DIR_PROTO)/*.h $(DIR_PROTO)/*.cc
 	rm -f $(DIR_CGEN)/preprocessed_*.hpp $(DIR_CGEN)/*.list
-	rm -f $(DIR_CGEN)/data_ser.hpp
+	rm -f $(DIR_CGEN)/data_ser.hpp $(DIR_CGEN)/filtered_data.hpp
+	rm -f $(DIR_TRACK)/*.h $(DIR_TRACK)/*.cc
 	make -C $(DIR_CGEN) clean
