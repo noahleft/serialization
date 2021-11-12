@@ -26,6 +26,7 @@
 
 |                    | Boost Serialization | Code Generation| Google ProtoBuf | ProtoBuf+Tracking |
 | ------------------ | ------------- | ------------- | ------------- | ------------- |
+| Engine             | Boost         | Boost         | ProtoBuf      | ProtoBuf      |
 | Pointer Referencing| ✅ Natively   | ✅ Natively | ❌ | ⚠️ Indexing |
 | Cross Versioning.  | ⚠️             | ❌ | ✅ Natively |✅ Natively |
 | Learning Curve.    | ❌            | ✅| ✅ | ❌ |
