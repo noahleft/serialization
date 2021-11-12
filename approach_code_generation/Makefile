@@ -18,7 +18,7 @@ exec_codegen: *.cpp $(DIR_DATA)/* cgen_parser
 	g++ $(DIR_DATA)/data.hpp -E -o $(DIR_TMP)/preprocessed_data.hpp
 	python3 filterPreprocessedData.py $(DIR_TMP)/serializable.list $(DIR_TMP)/preprocessed_data.hpp $(DIR_TMP)/filtered_data.hpp
 	./cgen_parser $(DIR_TMP)/filtered_data.hpp > $(DIR_TMP)/data_ser.hpp
-	g++ -DCODEGEN_EXAMPLE $(DATA_SRC) -o $@ \
+	g++ -DSERIALIZE $(DATA_SRC) -o $@ \
 		exec_codegen.cpp -lboost_serialization
 
 clean:

@@ -11,7 +11,7 @@ all: $(SOURCES)
 exec_protobuf_tracking: *.cpp $(DIR_DATA)/*
 	mkdir $(DIR_TMP)
 	protoc --cpp_out=$(DIR_TMP) addressbook.proto
-	g++ -I$(DIR_TMP) -DPROTOBUF_TRACK_EXAMPLE $(DATA_SRC) -o $@ \
+	g++ -I$(DIR_TMP) -DSERIALIZE $(DATA_SRC) -o $@ \
 		exec_protobuf_tracking.cpp $(DIR_TMP)/*.cc -lprotobuf
 
 clean:

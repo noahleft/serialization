@@ -9,7 +9,7 @@ TARGET  = exec_boost
 all: $(TARGET)
 
 exec_boost: *.cpp $(DIR_DATA)/*
-	g++ -I$(DIR_BOOST) -DBOOST_EXAMPLE $(DATA_SRC) -o $@ \
+	g++ -I$(DIR_BOOST) -DSERIALIZE $(DATA_SRC) -o $@ \
 		exec_boost.cpp -lboost_serialization
 
 clean:
