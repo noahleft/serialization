@@ -23,6 +23,6 @@ exec_codegen: *.cpp $(DIR_DATA)/* cgen_parser
 
 clean:
 	rm -f $(TARGET)
-	rm -f cgen_parser
+	rm -f cgen_parser*
 	rm -f cgen_lex.yy.cc
 	rm -rf $(DIR_TMP)
