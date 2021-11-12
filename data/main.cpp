@@ -5,24 +5,9 @@ int main() {
     std::string buf;
     auto root = get_serializable_object();
 
-#if defined(BOOST_EXAMPLE)
-    buf = serialize_boost(root);
-    auto des = deserialize_boost(buf);
-    std::cout << "Is serialize/deserialize result equivalent:" << is_equal(root, des) << std::endl;
-    std::cout << "Is serialize/deserialize result identical :" << is_identical(root, des) << std::endl;
-#elif defined(CODEGEN_EXAMPLE)
-    buf = serialize_codegen(root);
-    auto des = deserialize_codegen(buf);
-    std::cout << "Is serialize/deserialize result equivalent:" << is_equal(root, des) << std::endl;
-    std::cout << "Is serialize/deserialize result identical :" << is_identical(root, des) << std::endl;
-#elif defined(PROTOBUF_EXAMPLE)
-    buf = serialize_protobuf(root);
-    auto des = deserialize_protobuf(buf);
-    std::cout << "Is serialize/deserialize result equivalent:" << is_equal(root, des) << std::endl;
-    std::cout << "Is serialize/deserialize result identical :" << is_identical(root, des) << std::endl;
-#elif defined(PROTOBUF_TRACK_EXAMPLE)
-    buf = serialize_protobuf(root);
-    auto des = deserialize_protobuf(buf);
+#if defined(BOOST_EXAMPLE) || defined(CODEGEN_EXAMPLE) || defined(PROTOBUF_EXAMPLE) || defined(PROTOBUF_TRACK_EXAMPLE)
+    buf = serialize(root);
+    auto des = deserialize(buf);
     std::cout << "Is serialize/deserialize result equivalent:" << is_equal(root, des) << std::endl;
     std::cout << "Is serialize/deserialize result identical :" << is_identical(root, des) << std::endl;
 #else

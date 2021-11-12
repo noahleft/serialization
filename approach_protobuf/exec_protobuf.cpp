@@ -34,7 +34,7 @@ static void translate_bus_group(data::BusGroup *model, bus_group *data) {
     }
 }
 
-extern std::string serialize_protobuf(ROOT_TYPE *root) {
+extern std::string serialize(ROOT_TYPE *root) {
     data::BusGroup model;
     translate_bus_group(&model, root);
     
@@ -80,7 +80,7 @@ static bus_group* restore_bus_group(data::BusGroup *model) {
     return data;
 }
 
-extern ROOT_TYPE* deserialize_protobuf(std::string str) {
+extern ROOT_TYPE* deserialize(std::string str) {
     data::BusGroup model;
     model.ParseFromString(str);
 
