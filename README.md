@@ -28,14 +28,14 @@
 | ------------------ | ------------- | ------------- | ------------- | ------------- |
 | Pointer Referencing| ✅ Natively   | ✅ Natively | ❌ | ⚠️ Indexing |
 | Cross Versioning.  | ⚠️             | ❌ | ✅ Natively |✅ Natively |
-| Development Effort | ❌            | ✅| ✅ | ❌ |
+| Learning Curve.    | ❌            | ✅| ✅ | ❌ |
 
  
  1. Boost Serialization: (serialize directly)
  > - Define the serialize function on the target data.
  > 1. ✅ pointer referencing: object tracking on the pointer address
  > 2. ⚠️ cross version: user need to handle the version migration on serialize function
- > 3. ❌ development: foreach header change, the developer needs to handle the serialization parts.
+ > 3. ❌ learning curve: foreach header change, the developer needs to handle the serialization parts.
  >> In general development flow, the database is controlled by a small group of developers.
  >> For each definition changes, it will require database expert to enhance the corresponding changes.
  > 4. ⚠️ inheritance: user need to export the base-derived relationship
@@ -45,7 +45,7 @@
  > - Use header file as IDL model to generate the serialize function on the target data.
  > 1. ✅ pointer referencing: object tracking on the pointer address
  > 2. ❌ cross version: user need to handle the version migration on serialize function
- > 3. ✅ development: with well-defined code generation, no extra work needed.
+ > 3. ✅ learning curve: with well-defined code generation, no extra work needed.
  >> In general, code generation would help RD to auto-gen the serialization function. 
  >> But it would cause the side-effect on forward/backward compatible.
  > 4. ⚠️ inheritance: user need to export the base-derived relationship
@@ -55,7 +55,7 @@
  > - Define the IDL model in ProtoBuf format. Then, translate the target data to the IDL model.
  > 1. ❌ pointer referencing: user need to record the relationship on IDL model. A general solution is indexing.
  > 2. ✅ cross version: protocl buffer support the cross version natively
- > 3. ✅ development: with well-defined IDL model, no extra work needed.
+ > 3. ✅ learning curve: with well-defined IDL model, no extra work needed.
  > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
  >> The modification on the generated code is not recommended in ProtoBuf documentation.
@@ -64,7 +64,7 @@
  > - Define the IDL model in ProtoBuf format. **And indexing shared object by developer.** Then, translate the target data to the IDL model.
  > 1. ⚠️ pointer referencing: the relationship is indexed as shared object on IDL model.
  > 2. ✅ cross version: protocl buffer support the cross version natively
- > 3. ❌ development: indexing requires expert maintenace. Especially on the question "how many shared objects in your program?"
+ > 3. ❌ learning curve: indexing requires expert maintenace. Especially on the question "how many shared objects in your program?"
  > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
  >> The modification on the generated code is not recommended in ProtoBuf documentation.
@@ -108,6 +108,9 @@ static bus_route* restore_bus_route(data::BusRoute *model) {
     ...
 }
 ```
+4. The modification for ProtoBuf + Object Tracking
+> The same as last item.
+
 
 # related approach
  1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing) (Process snapshot)
