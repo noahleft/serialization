@@ -24,13 +24,13 @@
  - ❌ Cons:    this approach can not handle it well. Require significant effect.
  - ⚠️ Neutral: this approach needs some extra handling. But it's do-able in most cases.
 
-|                    | Boost Serialization | Code Generation| Google ProtoBuf | ProtoBuf+Tracking |
-| ------------------ | ------------- | ------------- | ------------- | ------------- |
-| Engine             | Boost         | Boost         | ProtoBuf      | ProtoBuf      |
-| Pointer Referencing| ✅ Natively   | ✅ Natively | ❌ | ⚠️ Indexing |
-| Cross Versioning.  | ⚠️             | ❌ | ✅ Natively |✅ Natively |
-| Learning Curve.    | ❌            | ✅| ✅ | ❌ |
-
+|                    | Boost Serialization | Code Generation| Google ProtoBuf | ProtoBuf+Tracking |Relational Database|
+| ------------------ | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Engine             | Boost         | Boost         | ProtoBuf      | ProtoBuf      | SQLite3       |
+| Pointer Referencing| ✅ Natively   | ✅ Natively | ❌ | ⚠️ Indexing |⚠️ Indexing |
+| Cross Versioning.  | ⚠️             | ❌ | ✅ Natively |✅ Natively |✅ Natively |
+| Learning Curve.    | ❌            | ✅| ✅ | ❌ | ✅ |
+| Low-level Support. | ✅            |  ✅            |  ⚠️            |  ⚠️            |  ❌            | 
  
  1. Boost Serialization: (serialize directly)
  > - Define the serialize function on the target data.
@@ -69,6 +69,15 @@
  > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ❌ memory consumption: Extra O(n) space required. ProtoBuf needs to **translate** the target data to required IDL model.
  >> The modification on the generated code is not recommended in ProtoBuf documentation.
+
+ 5. [Relational Database](https://en.wikipedia.org/wiki/Relational_database) (Implemented with Indexing shared object)
+ > - Abstract the data to relational model. **And indexing shared object by developer.** Then, translate the target data to the IDL model.
+ > - Use traditional CRUD operations to store the data. Ex: SQLite
+ > 1. ⚠️ pointer referencing: the relationship is indexed as shared object on IDL model.
+ > 2. ✅ cross version: relational data model support the cross version natively
+ > 3. ✅ learning curve: indexing requires expert maintenace. But the relational database is common in many different area.
+ > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
+ > 5. ⚠️ memory consumption: **Stepwise** translation does not require extra memory.
 
 # demo example
 
@@ -112,15 +121,33 @@ static bus_route* restore_bus_route(data::BusRoute *model) {
 4. The modification for ProtoBuf + Object Tracking
 > The same as last item.
 
+5. The modification for Relational Database
+> Define the **new** column on current database schema
+```SQLite
+CREATE TABLE BUS_ROUTE(
+...
+NAME TEXT
+);
+```
+```C++
+void sql_interface::serialize() {
+  sql << "INSERT INTO BUS_ROUTE (ID, NAME, ROUTE) VALUES ("
+  ...
+  ... /*need to modify the corrseponding sql string*/
+}
+
+void br_callback(...) {
+  ...
+  br->route_name = string(argv[1]); /*error handling if cross version required.*/
+  ...
+}
+```
 
 # related approach
  1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing) (Process snapshot)
  > - Check point the process to disk and restart later. 
  > - Ex: Distributed MultiThreaded CheckPointing (DMTCP), Checkpoint/Restore In Userspace (CRIU), Berkeley Lab Checkpoint/Restart (BCLR)
- 2. [relational database](https://en.wikipedia.org/wiki/Relational_database) (Schema-based)
- > - Use traditional CRUD operations to store the data.
- > - Ex: SQLite
- 3. [key-value database](https://en.wikipedia.org/wiki/Key–value_database) (Distributed Hashing)
+ 2. [key-value database](https://en.wikipedia.org/wiki/Key–value_database) (Distributed Hashing)
  > - Non-relational database that uses a simple key-value method.
  > - Ex: Redis
 
