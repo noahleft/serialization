@@ -81,6 +81,8 @@
 
 # demo example
 
+[Have a look on the example data.](data/)
+
 ```C++
 class bus_route
 {
@@ -119,7 +121,7 @@ static bus_route* restore_bus_route(data::BusRoute *model) {
 }
 ```
 4. The modification for ProtoBuf + Object Tracking
-> The same as last item.
+> The same as ProtoBuf.
 
 5. The modification for Relational Database
 > Define the **new** column on current database schema
