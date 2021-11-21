@@ -1,6 +1,6 @@
 # Data
 
-The example is a collection of bus data.
+The example is a simple bus group which contains collection of bus data.
 
 There are 2 bus routes with 11 unique bus stop.
 
@@ -24,4 +24,4 @@ There are 2 bus routes with 11 unique bus stop.
 |5|24.1264|120.686|Tong-Feng Junior High School|
 |6|24.1264|120.69|Renhe-Dazhi Rd. Intersection|
 
-Note: The r281#2 and r284#1 are same bus stop.
+Note: The r281#2 and r284#1 are same bus stop. (with same lat/lng and bus name)
