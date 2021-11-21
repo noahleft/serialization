@@ -79,10 +79,13 @@
  > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ⚠️ memory consumption: **Stepwise** translation does not require extra memory.
 
-# demo example
+# change request
 
-[Have a look on the example data.](data/)
+Here, let's have an example change request to see how many code changes required if we have a change request.
 
+Before that, please [have a look on the example data.](data/)
+
+The following change request is to add a name to route object.
 ```C++
 class bus_route
 {
@@ -92,6 +95,7 @@ public:
     std::string route_name;       // add a string "route_name" as header change
 };
 ```
+
 1. The modification for Boost Serialization,
 ```C++
 void serialize(Archive & ar, bus_route & obj, const unsigned int version) {
@@ -121,7 +125,23 @@ static bus_route* restore_bus_route(data::BusRoute *model) {
 }
 ```
 4. The modification for ProtoBuf + Object Tracking
-> The same as ProtoBuf.
+> The same as ProtoBuf since the string type did not require object tracking.
+```ProtoBuf
+message BusRoute {
+    repeated BusStop routes = 1;
+    optional string route_name = 2;// corresponding ProtoBuf IDL model
+}
+```
+```C++
+static void translate_bus_route(data::BusRoute *model, bus_route *data) {
+    model->set_route_name(data->route_name); // corresponding bridge between data and IDL
+    ...
+}
+static bus_route* restore_bus_route(data::BusRoute *model) {
+    data->route_name = model->route_name(); // corresponding bridge between data and IDL
+    ...
+}
+```
 
 5. The modification for Relational Database
 > Define the **new** column on current database schema
