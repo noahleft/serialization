@@ -81,7 +81,7 @@
 
 # change request
 
-Here, let's have an example change request to see how many code changes required if we have a change request.
+Here, let's have an example change request to see how many code changes required.
 
 Before that, please [have a look on the example data.](data/)
 
