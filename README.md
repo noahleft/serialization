@@ -79,14 +79,23 @@
  > 4. ⚠️ inheritance: user need to record the base-derived relationship on IDL model
  > 5. ⚠️ memory consumption: **Stepwise** translation does not require extra memory.
 
-# change request
+# learning curve
+**the required code changes for new data structure**
 
 Here, let's have an example change request to see how many code changes required.
 
-Before that, please [have a look on the example data.](data/)
+In most cases, more code change means steep learning curve.
 
-The following change request is to add a name to route object.
+Before that, please [have a look on the example data](data/).
+
+Change request:
+```
+add a name (string type) to route object.
+```
+The header file change is like below. Since string type is the basic data type, the pointer referencing and inheritance is not required.
+
 ```C++
+/*bus_route.hpp*/
 class bus_route
 {
 public:
@@ -98,6 +107,7 @@ public:
 
 1. The modification for Boost Serialization,
 ```C++
+/*bus_route_ser.hpp*/
 void serialize(Archive & ar, bus_route & obj, const unsigned int version) {
     ar.template register_type<bus_stop_detail>();
     ar & obj.routes;
@@ -109,12 +119,14 @@ void serialize(Archive & ar, bus_route & obj, const unsigned int version) {
 
 3. The modification for ProtoBuf
 ```ProtoBuf
+/*addressbook.proto*/
 message BusRoute {
     repeated BusStop routes = 1;
     optional string route_name = 2;// corresponding ProtoBuf IDL model
 }
 ```
 ```C++
+/*exec_protobuf.cpp*/
 static void translate_bus_route(data::BusRoute *model, bus_route *data) {
     model->set_route_name(data->route_name); // corresponding bridge between data and IDL
     ...
@@ -127,12 +139,14 @@ static bus_route* restore_bus_route(data::BusRoute *model) {
 4. The modification for ProtoBuf + Object Tracking
 > The same as ProtoBuf since the string type did not require object tracking.
 ```ProtoBuf
+/*addressbook.proto*/
 message BusRoute {
     repeated BusStop routes = 1;
     optional string route_name = 2;// corresponding ProtoBuf IDL model
 }
 ```
 ```C++
+/*exec_protobuf.cpp*/
 static void translate_bus_route(data::BusRoute *model, bus_route *data) {
     model->set_route_name(data->route_name); // corresponding bridge between data and IDL
     ...
@@ -152,6 +166,7 @@ NAME TEXT
 );
 ```
 ```C++
+/*exec_sqlite3.cpp*/
 void sql_interface::serialize() {
   sql << "INSERT INTO BUS_ROUTE (ID, NAME, ROUTE) VALUES ("
   ...
