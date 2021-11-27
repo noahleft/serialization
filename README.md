@@ -179,6 +179,11 @@ void br_callback(...) {
   ...
 }
 ```
+**Summary:**
+> Different apporaches have different support effort.
+> IMO, the relational database take the most effort.
+> The code generation is the best to minimize the effort.
+
 
 # related approach
  1. [application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing) (Process snapshot)
