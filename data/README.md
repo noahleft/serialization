@@ -2,6 +2,8 @@
 
 The example is a simple bus group which contains collection of bus data.
 
+![routes image](graph.svg)
+
 There are 2 bus routes with 11 unique bus stop.
 
 **route:r281**
